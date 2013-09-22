@@ -1,4 +1,5 @@
-<div id = "show_inf">
+<div id = "item_show_inf">
+    <h1 id = "item_show_inf">物品資訊</h1>
     <p id="id">
         <b>ID:</b> <?php echo $iId;?>
     </p>
@@ -21,9 +22,15 @@
         <b>備註:</b><?php echo $iNote;?>
     </p>
 </div>
-<div id = "show_picture">
+<div id = "item_show_picture">
     <b>圖片:</b><br/>
     <img 
-    src="<?php echo base_url("data/image/rs_pm/$iId.jpg");?>"
-    alt="<?php echo $iName;?>無法載入圖片"/>
+    src="<?php echo base_url("data/image/rs_pm/$iId.jpg");?>" alt="<?php echo $iName;?>無法載入圖片"/>
+</div>
+<div id = "edit">
+    <form id = "select" 
+        action="http://localhost/nchusg_rs_property_management/index.php/rs_pm/item/edit_index"method="post">
+        <input type="hidden" name="iId" value="<?php echo $iId;?>" />
+        <input type="submit" value="修改" />       
+    </form>
 </div>
