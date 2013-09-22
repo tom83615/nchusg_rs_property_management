@@ -5,17 +5,29 @@ class Item_model extends CI_Model
     {
         parent::__construct();                 // 呼叫模型(Model)的建構函數
     }
-    //==================================================//
-    //檢測用
-    //==================================================//
+    /*==================================================
+    全域資料
+    ==================================================*/
+    private $iId = NULL;
+    private $iName = NULL;
+    private $iClass = NULL;
+    private $iNumber = NULL;
+    private $iDeadline = NULL;
+    private $iWeight = NULL;
+    private $iNote = NULL;
+    private $fullset = false;
+    private $data_array = array("iName","iClass","iNumber","iDeadline","iWeight","iNote");
+    /*==================================================
+    檢測用
+    ==================================================*/
     public function check_user()
     {
        if($this->input->cookie('weight',true) < 8)
           throw new Exception("load refuse");
     }
-    //==================================================//
-    //搜尋
-    //==================================================//
+    /*================================================
+    搜尋
+    ================================================*/
     //用於搜索全部
     public function get_item_all($col,$weight=1)//by weight
     {
@@ -44,9 +56,50 @@ class Item_model extends CI_Model
       $data = $this->xsscln_arr($data);
       return($data);
     }
-    //==================================================//
-    //其他
-    //==================================================//
+    /*==================================================
+    資料輸入
+    ==================================================*/
+    public function set($arr)//設定
+    {
+      if(!is_array($arr))
+          throw new Exception("input must be array.");
+      foreach($arr as $key =>$value )
+      {
+          if($value == 0 && $key!= "note" )
+              throw new Exception("$key would't be NULL.");
+          switch ($key)
+          {
+            case "id":
+              $this->iId = $value;
+              break;
+            case "name":
+              $this->iName = $value;
+              break;
+            case "class":
+              $this->iClass = $value;
+              break;
+            case "number":
+              $this->iNumber = $value;
+              break;
+            case "deadline":
+              $this->iDeadline = $value;
+              break;
+            case "note":
+              $this->iNote = $value;
+              break;
+          }
+          $this->fullset = true; 
+      }
+    }
+    public function edit()//編輯
+    {
+      
+    
+    
+    }
+    /*==================================================
+    其他
+    ==================================================*/
     //換成arr 以及防止XSS
     public function xsscln_arr($in)
     {
