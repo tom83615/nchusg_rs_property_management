@@ -8,7 +8,8 @@ class Item extends CI_Controller
         parent::__construct();    //讀取必要模組
         $this->load->helper('url');
         $this->load->helper('cookie');
-        $this->load->model('rs_pm/item_model');
+        $this->load->model('item_model');
+        $this->load->model('check_model');
     }
       
     public function index()//預設
@@ -16,12 +17,12 @@ class Item extends CI_Controller
         try
         {
             $header_data['title'] = '物品管理'; //header所需要的值
-            $this->load->view('rs_pm/header',$header_data);
-            $this->item_model->check_user();//確定權限
+            $this->load->view('header',$header_data);
+            $this->check_model->check_user();//確定權限
             if(isset($_GET["selection"]))
                 $this->show($_GET["selection"]);//in this file
             $this->selection();//in this file
-            $this->load->view('rs_pm/footer');
+            $this->load->view('footer');
         }
         catch(Exception $e){
         	echo $e->getMessage(), "\n" ;
@@ -33,32 +34,24 @@ class Item extends CI_Controller
             try
             {
             $header_data['title'] = '物品管理'; //header所需要的值
-            $this->load->view('rs_pm/header',$header_data);
-            $this->item_model->check_user();//確定權限
-            if(isset($_POST["iId"]))
-                $this->edit();//in this file
-            else
-                $this->add();//in this file
-            $this->load->view('rs_pm/footer');
+            $this->load->view('header',$header_data);
+            $this->check_model->check_user();//確定權限
+            $this->edit();//in this file
+            $this->load->view('footer');
             }
             catch(Exception $e){
                 echo $e->getMessage(), "\n" ;
             }
       }
+
     public function edit_to_db()
     {
         try
         {
-        $header_data['title'] = '物品管理'; //header所需要的值
-        $this->item_model->check_user();//確定權限
-        $this->item_model->set($_POST);
-        $this->item_model->edit();
-        $this->load->view('rs_pm/edit_success');
-        if(isset($_POST['id']))
-            $this->show($_POST['id']);
-        else
-            $this->show($this->item_model->iId);
-        $this->load->view('rs_pm/footer');
+        $this->to_db();//in this file
+        $this->load->view('edit_success');
+        $this->show_change();
+        $this->load->view('footer');
         }
         catch(Exception $e){
             echo $e->getMessage(), "\n" ;
@@ -68,23 +61,40 @@ class Item extends CI_Controller
     private function selection()//選擇物品
     {
         $item_base = $this->item_model->get_item_all(array('iId','iName'),$this->input->cookie('weight',true));
-            $this->load->view('rs_pm/item_select',$item_base);
+            $this->load->view('item_select',$item_base);
     }
       
     private function show($id)//顯示已選擇物品
     {
         $item_inf = $this->item_model->get_item_single($id);
-        $this->load->view('rs_pm/item_show',$item_inf[0]);
+        $this->load->view('item_show',$item_inf[0]);
     }
       
-    private function edit()//編輯 有ID
+    private function edit()//編輯
     {
-        $item_inf = $this->item_model->get_item_single($_POST["iId"]);
-        $this->load->view('rs_pm/item_edit',$item_inf[0]);
+        if(isset($_POST["iId"]))
+        {
+            $item_inf = $this->item_model->get_item_single($_POST["iId"]);
+            $this->load->view('item_edit',$item_inf[0]);
+        }
+        else
+        {
+            $this->load->view('item_add');
+        }   
+        
     }
-    private function add()//新增 無ID
+
+    private function to_db()//進入資料庫
     {
-        $this->load->view('rs_pm/item_add');
+        $this->item_model->set($_POST);
+        $this->item_model->edit();        
+    }
+    private function show_change()//顯示成功的資料
+    {
+        if(isset($_POST['id']))
+            $this->show($_POST['id']);
+        else
+            $this->show($this->item_model->iId);        
     }
 }
 ?>

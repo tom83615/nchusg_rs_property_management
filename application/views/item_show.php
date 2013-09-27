@@ -25,11 +25,11 @@
 <div id = "item_show_picture">
     <b>圖片:</b><br/>
     <img 
-    src="<?php echo base_url("data/image/rs_pm/$iId.jpg");?>" alt="<?php echo $iName;?>無法載入圖片"/>
+    src="<?php echo base_url("data/image/$iId.jpg");?>" alt="<?php echo $iName;?>無法載入圖片"/>
 </div>
 <div id = "edit">
     <form id = "select" 
-        action= <?php echo base_url("index.php/rs_pm/item/edit_index");?> method="post">
+        action= <?php echo base_url("index.php/item/edit_index");?> method="post">
         <input type="hidden" name="iId" value="<?php echo $iId;?>" />
         <input type="submit" value="修改" />       
     </form>

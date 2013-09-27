@@ -17,14 +17,6 @@ class Item_model extends CI_Model
     private $iNote = NULL;
     private $fullset = false;
     private $data_array = array("iName","iClass","iNumber","iDeadline","iWeight","iNote");
-/*==================================================
-檢測用
-==================================================*/
-    public function check_user()
-    {
-        if($this->input->cookie('weight',true) < 8)
-            throw new Exception("load refuse");
-    }
 /*================================================
 搜尋
 ================================================*/

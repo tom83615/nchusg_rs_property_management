@@ -1,7 +1,7 @@
 <div id="item_edit">
     <h1 "item_edit">編輯物品資料</h1>
     <form id = "edit" 
-        action= <?php echo base_url("index.php/rs_pm/item/edit_to_db");?> method="post">
+        action= <?php echo base_url("index.php/item/edit_to_db");?> method="post">
     <?php ?>
     <b>ID　:</b><input type="text" name="id"   value="<?php echo $iId;?>" disabled 	="disabled"/><br/><br/> <input type="hidden" name="id" value="<?php echo $iId;?>"/>
     

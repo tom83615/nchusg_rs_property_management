@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" http-equiv="refresh" content="10;url=<?php echo base_url("index.php/rs_pm/item");?>">
+    <meta charset="utf-8" http-equiv="refresh" content="10;url=<?php echo base_url("index.php/item");?>">
     <title>編輯成功</title>
 </head>
     <body>
