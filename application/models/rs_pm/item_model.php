@@ -38,6 +38,7 @@ class Item_model extends CI_Model
           
           $this->db->select($value);
           $this->db->where('iWeight <=',$weight);
+          $this->db->where('iWeight >',0);
           $data = $this->db->get('item');
           $data = $this->xsscln_arr($data);
           $result["$value"] = array();
@@ -48,13 +49,16 @@ class Item_model extends CI_Model
       }
       return($result);
     }
-    
+    //用來找一個
     public function get_item_single($id)//by id
     {
+      $user = $this->input->cookie('weight',true);
       $this->db->where('iId',$id);
       $data = $this->db->get('item');
       $data = $this->xsscln_arr($data);
-      return($data);
+      if($data[0]['iWeight'] <= $user)
+        return($data);
+      else throw new Exception("load refuse");
     }
     /*==================================================
     資料輸入
