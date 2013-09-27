@@ -29,7 +29,7 @@
 </div>
 <div id = "edit">
     <form id = "select" 
-        action="http://localhost/nchusg_rs_property_management/index.php/rs_pm/item/edit_index" method="post">
+        action= <?php echo base_url("index.php/rs_pm/item/edit_index");?> method="post">
         <input type="hidden" name="iId" value="<?php echo $iId;?>" />
         <input type="submit" value="修改" />       
     </form>

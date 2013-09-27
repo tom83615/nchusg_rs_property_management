@@ -1,7 +1,7 @@
 <div id="item_edit">
     <h1 id="item_edit" >登錄物品</h1>
     <form id = "edit" 
-          action="http://localhost/nchusg_rs_property_management/index.php/rs_pm/item/edit_to_db"method="post">
+          action= <?php echo base_url("index.php/rs_pm/item/edit_to_db");?> method="post">
     <?php ?>
     <br/><br/>
     <b>名稱:</b><input type="text" name="name" /><br/><br/>

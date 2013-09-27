@@ -1,5 +1,7 @@
 application/config/database.php
 application/controllers/rs_pm/test.php
 application/controllers/rs_pm/setcookie.php
+nchusg_rs_property_management.sublime-project
+nchusg_rs_property_management.sublime-workspace
 data/image/rs_pm/
 */.htaccess
