@@ -20,7 +20,10 @@ class Item extends CI_Controller
             $this->load->view('header',$header_data);
             $this->check_model->check_user();//確定權限
             if(isset($_GET["selection"]))
+            {
                 $this->show($_GET["selection"]);//in this file
+                $this->load->view('item_edit_button',$_GET["selection"]);
+            }
             $this->selection();//in this file
             $this->load->view('footer');
         }

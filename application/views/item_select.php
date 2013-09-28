@@ -1,10 +1,12 @@
-<div id = "item_select">
-  <h3 id = "item_select">物品列表</h3>
-  <form id = "item_add" action=<?php echo base_url("index.php/item/edit_index");?> >
+<div id = "add_button">  
+  <form id = "add_button" action=<?php echo base_url("index.php/item/edit_index");?> >
       <input type="submit" value="登錄新物品" />
   </form>
-  
-  
+</div>
+
+<div id = "item_select">
+  <h3 id = "item_select">物品列表</h3>
+    
   <form id="item_select" 
          action=<?php echo base_url("index.php/item");?> method="get">
       <select name="selection">

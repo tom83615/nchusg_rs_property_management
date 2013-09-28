@@ -1,5 +1,5 @@
 <div id="item_edit">
-    <h1 "item_edit">編輯物品資料</h1>
+    <h1 id="item_edit">編輯物品資料</h1>
     <form id = "edit" 
         action= <?php echo base_url("index.php/item/edit_to_db");?> method="post">
     <?php ?>
