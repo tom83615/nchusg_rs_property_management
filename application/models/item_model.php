@@ -123,6 +123,14 @@ class Item_model extends CI_Model
         $this->iNote = NULL;
         $this->fullset = false;
     }
+    public function delete()//刪除資料
+    {
+        if($this->iId == NULL)
+            throw new Exception("you should set(id) first");
+        $this->db->where('iId',$this->iId);
+        $arr = array('iWeight' => 0);
+        $this->db->update('item', $arr); 
+    }
 /*==================================================
 其他
 ==================================================*/

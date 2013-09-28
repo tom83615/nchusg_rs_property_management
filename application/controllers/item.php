@@ -11,7 +11,7 @@ class Item extends CI_Controller
         $this->load->model('item_model');
         $this->load->model('check_model');
     }
-      
+
     public function index()//預設
       {
         try
@@ -32,39 +32,56 @@ class Item extends CI_Controller
         }
       }
       
-      public function edit_index()//編輯時呼叫
-      {
-            try
-            {
+    public function edit_index()//編輯時呼叫
+    {
+        try
+        {
             $header_data['title'] = '物品管理'; //header所需要的值
             $this->load->view('header',$header_data);
             $this->check_model->check_user();//確定權限
             $this->edit();//in this file
             $this->load->view('footer');
-            }
-            catch(Exception $e){
-                echo $e->getMessage(), "\n" ;
-            }
-      }
-
-    public function edit_to_db()
+        }
+        catch(Exception $e){
+            echo $e->getMessage(), "\n" ;
+        }
+    }
+    public function delete()//刪除
     {
         try
         {
-        $this->to_db();//in this file
-        $this->load->view('edit_success');
+        $delete_inf = $this->item_model->get_item_single($_POST['iId']);
+        $header_data['delete_inf'] = $delete_inf[0];
+        $this->item_model->set(array('id'=> $_POST['iId']));
+        $this->item_model->delete();
+        $header_data['title'] = '物品刪除'; //header所需要的值
+        $this->load->view('item_delete_success',$header_data);
+
+        $this->load->view('footer');
+        }
+        catch(Exception $e){
+            echo $e->getMessage(), "\n" ;
+        }
+    }
+    public function edit_to_db()//進資料庫
+    {
+        try
+        {
+        $this->to_db($_POST);//in this file
+        $header_data['title'] = '物品編輯'; //header所需要的
+        $this->load->view('item_edit_success',$header_data);
         $this->show_change();
         $this->load->view('footer');
         }
         catch(Exception $e){
             echo $e->getMessage(), "\n" ;
         }
-    } 
-       
+    }
+
     private function selection()//選擇物品
     {
         $item_base = $this->item_model->get_item_all(array('iId','iName'),$this->input->cookie('weight',true));
-            $this->load->view('item_select',$item_base);
+        $this->load->view('item_select',$item_base);
     }
       
     private function show($id)//顯示已選擇物品
@@ -87,9 +104,9 @@ class Item extends CI_Controller
         
     }
 
-    private function to_db()//進入資料庫
+    private function to_db($data)//進入資料庫
     {
-        $this->item_model->set($_POST);
+        $this->item_model->set($data);
         $this->item_model->edit();        
     }
     private function show_change()//顯示成功的資料

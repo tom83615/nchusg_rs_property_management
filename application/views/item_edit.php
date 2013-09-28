@@ -3,7 +3,7 @@
     <form id = "edit" 
         action= <?php echo base_url("index.php/item/edit_to_db");?> method="post">
     <?php ?>
-    <b>ID　:</b><input type="text" name="id"   value="<?php echo $iId;?>" disabled 	="disabled"/><br/><br/> <input type="hidden" name="id" value="<?php echo $iId;?>"/>
+    <b>ID　:</b><input type="text" name="id"   value="<?php echo $iId;?>" disabled ="disabled"/><br/><br/> <input type="hidden" name="id" value="<?php echo $iId;?>"/>
     
     <b>名稱:</b><input type="text" name="name" value="<?php echo $iName;?>"/><br/><br/>
     
