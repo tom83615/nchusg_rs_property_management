@@ -1,5 +1,7 @@
 <div id = "item_show_inf">
-    <h1 id = "item_show_inf">物品資訊</h1>
+    <?php
+        echo heading("物品資訊",1,'id="item_show_inf"');     
+    ?>
     <p id="id">
         <b>ID:</b> <?php echo $iId;?>
     </p>
@@ -22,8 +24,12 @@
         <b>備註:</b><?php echo $iNote;?>
     </p>
 </div>
+
 <div id = "item_show_picture">
     <b>圖片:</b><br/>
-    <img 
-    src="<?php echo base_url("data/image/$iId.jpg");?>" alt="<?php echo $iName;?>無法載入圖片"/>
+    <?php
+        echo img(array( 'src'=>"data/image/$iId.jpg",
+                        'alt'=>$iName.'沒有圖片'
+                ));
+    ?>
 </div>

@@ -6,8 +6,6 @@ class Item extends CI_Controller
     public function __construct()
     {
         parent::__construct();    //讀取必要模組
-        $this->load->helper('url');
-        $this->load->helper('cookie');
         $this->load->model('item_model');
         $this->load->model('check_model');
     }
@@ -55,8 +53,9 @@ class Item extends CI_Controller
         $this->item_model->set(array('id'=> $_POST['iId']));
         $this->item_model->delete();
         $header_data['title'] = '物品刪除'; //header所需要的值
-        $this->load->view('item_delete_success',$header_data);
-
+        $header_data['refresh_url'] = array('url' => base_url("index.php/item"),'time' => 5);
+        $this->load->view('header',$header_data);
+        $this->load->view('item_delete_success');
         $this->load->view('footer');
         }
         catch(Exception $e){
@@ -69,7 +68,9 @@ class Item extends CI_Controller
         {
         $this->to_db($_POST);//in this file
         $header_data['title'] = '物品編輯'; //header所需要的
-        $this->load->view('item_edit_success',$header_data);
+        $header_data['refresh_url'] = array('url' => base_url("index.php/item"),'time' => 5);
+        $this->load->view('header',$header_data);
+        $this->load->view('item_edit_success');
         $this->show_change();
         $this->load->view('footer');
         }
@@ -77,7 +78,20 @@ class Item extends CI_Controller
             echo $e->getMessage(), "\n" ;
         }
     }
-
+    public  function picture_edit()
+    {
+        try
+        {
+            $header_data['title'] = '上傳圖片'; //header所需要的
+            $this->load->view('header',$header_data);
+            
+            $this->load->view('footer');
+        }
+        catch(Exception $e){
+            echo $e->getMessage(), "\n" ;
+        }
+                
+    }
     private function selection()//選擇物品
     {
         $item_base = $this->item_model->get_item_all(array('iId','iName'),$this->input->cookie('weight',true));

@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <?php
-        echo meta("Content-type","text/html; charset=utf-8");
-        if(isset($refresh_url))
-                echo meta("refresh",$refresh_url['time'].";url=".$refresh_url['url'],"equiv");
+        echo meta("refresh","5;url=".base_url("index.php/item"),'equiv');
+        echo meta("Content-type","text/html; charset = utf-8");
         if(isset($css_location))
              foreach($css_location as $element)
                 echo link_tag("$element");
