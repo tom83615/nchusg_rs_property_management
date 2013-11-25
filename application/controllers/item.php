@@ -78,13 +78,17 @@ class Item extends CI_Controller
             echo $e->getMessage(), "\n" ;
         }
     }
-    public  function picture_edit()
+    public  function picture_edit()//圖片編輯
     {
         try
         {
-            $header_data['title'] = '上傳圖片'; //header所需要的
+            $header_data['title'] = '圖片編輯'; //header所需要的
             $this->load->view('header',$header_data);
-            
+            $this->picture_show($_POST['iId']);//in this file
+            if(isset($_POST['sent']))
+                $this->do_upload();
+            if(isset($_POST['delete']))
+                $this->item_model->pic_delete($_POST['iId']);
             $this->load->view('footer');
         }
         catch(Exception $e){
@@ -129,6 +133,24 @@ class Item extends CI_Controller
             $this->show($_POST['id']);
         else
             $this->show($this->item_model->iId);        
+    }
+    private function picture_show($id)
+    {
+        $item_inf = $this->item_model->get_item_single($id);
+        $this->load->view('item_picture_show',$item_inf[0]);
+        $this->load->view('item_picture_button',$item_inf[0]);        
+    }
+    private function do_upload()
+    {
+        $config['upload_path'] = base_url('data/image');
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size'] = '50';
+        $config['overwrite'] = true;
+        if(!$this->upload->do_upload('pic_upload'))
+            {
+                echo $this->upload->display_errors();
+                throw new Exception("upload picture failed");
+            }
     }
 }
 ?>

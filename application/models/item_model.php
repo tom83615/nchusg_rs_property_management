@@ -141,5 +141,14 @@ class Item_model extends CI_Model
         $result = $this->security->xss_clean($result);
         return $result;
     }
+/*==================================================
+圖片
+==================================================*/
+    //刪除圖片
+    public function pic_delete($id)
+    {
+        delete_files(base_url("data/image/$id.jpg"));
+        return true;
+    }
 }    
 ?>

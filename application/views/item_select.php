@@ -12,8 +12,8 @@
       $attribute['method'] = 'get';
       echo form_open("item", $attribute);
           echo '<select name="selection">';
-          foreach($iName as $key => $option)
-            echo '<option value="'.$iId["$key"].'">'.$option.'</option>';
+            foreach($iName as $key => $option)
+              echo '<option value="'.$iId["$key"].'">'.$option.'</option>';
           echo '</select>';
           echo form_submit("","選擇");
       echo form_close();  
